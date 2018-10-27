@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ankit.demomapapp">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".search.MainActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".search.ResultListActivity"
+            android:label="ResultList"></activity>
+        <activity android:name=".navigation.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".positioning.BasicPositioningActivity"
+            android:label="@string/app_name">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+
+        <!--
+         Developers should put application credentials here.To obtain them, please register the application
+         at https://developer.here.com/develop/mobile-sdks
+        -->
+        <meta-data
+            android:name="com.here.android.maps.appid"
+            android:value="ZQO1DhKzuPbC6JOVxTJu" />
+        <meta-data
+            android:name="com.here.android.maps.apptoken"
+            android:value="G1quXJ2z4ej7GDx41qJJiw" />
+        <meta-data
+            android:name="com.here.android.maps.license.key"
+            android:value="ZZUL1Jhfot77zZyoNDIsCbm3rBG/m7jeSHdR9e2ksNvzV0zSb85Lb/17U6vyL0iKYpGi9dVFs3RHrMLLOXSfmbKYAYruHOw8hk+S/5QFV6llQzLDUBuZ9i2XrRMCCeyfUcdZyV8oHOCQnAbVjRxp112urtIOyRB4OM+L/KYVLNCXaubRXlj9LHDBjwVN5lkA1rEX9j92fb65BEGor/NkLuOuGmisno1XU1TdAIeoExuGFsA5wmyXxohkSpP/g2ZpNOuwKAfQS6QbQlonCBQpvKQCn3sU9pfBwyeYI9A7GgUZ79ZWye60DM+yMghvnPdd1+FKSt2wPmkAlH7eR9lnn0nP32MzZabNvKnJAFl//kmUsykujfFRwL1wiEatfEz3B4dPodOUx6PGavtw+yprVVbDwl9QaX+0o1LvlATDOqbwnVNtP+x/NypXeuyzYBxooaTTbtn8UW8WbKjSEaRtqjzVtRXbSnhz7xUg4XxoImQ/iYHFhKtImw9nDqTeb1pa94X4O3Ew/ImoA4X3DzdL6W8nfI+kYzaC3CUgMxg4nL8iv2hojLb65V0q1TDgWXf2QQHjb7WGtqb1iDKziddqjfL3d3q/Q7M2TiDZVvwmRk8JI02eh/6zJJMOaEJPWUGkGiP2SKeAY2tMQeGlMcqu0xUdQRAddkdIsa3SdWWy15U=" />
+
+        <!--
+        Developers should always provide custom values for each of {YOUR_LABEL_NAME} and {YOUR_INTENT_NAME}.
+        Do not reuse HERE SDK defaults.
+        -->
+
+        <meta-data
+            android:name="com.demo.here.maps.service"
+            android:value="com.demo.here.maps.service" />
+
+        <service
+            android:name="com.here.android.mpa.service.MapService"
+            android:exported="false"
+            android:label="DemoMapHere">
+            <intent-filter>
+                <action android:name="com.demo.here.maps.service"></action>
+            </intent-filter>
+        </service>
+
+        <!--
+          Embed the HERE Positioning Service.
+          For more information, see the HERE SDK Developer's Guide
+        -->
+        <service
+            android:name="com.here.services.internal.LocationService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote" />
+        <!--
+            HERE Location boot receiver definition.
+            For more information, see the HERE SDK Developer's Guide
+        -->
+        <receiver
+            android:name="com.here.services.internal.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
