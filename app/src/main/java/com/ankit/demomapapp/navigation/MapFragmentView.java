@@ -16,12 +16,18 @@
 
 package com.ankit.demomapapp.navigation;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -50,6 +56,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Besides the turn-by-turn navigation example app, This app covers 2 other common use cases:
@@ -57,7 +64,9 @@ import java.util.List;
  * - using a MapMarker as position indicator and how to make the movements smooth and
  * synchronized with map movements.
  */
-public class MapFragmentView {
+public class MapFragmentView implements LocationListener  {
+    private final LocationManager locationManager;
+
     private MapFragment m_mapFragment;
     private Map m_map;
 
@@ -67,8 +76,27 @@ public class MapFragmentView {
     private double m_lastZoomLevelInRoadViewMode = 0.0;
     private Activity m_activity;
 
+    double lati, longi;
+    private Runnable mPendingUpdate;
+    private boolean mTransforming;
+
+
     public MapFragmentView(Activity activity) {
         m_activity = activity;
+        locationManager = (LocationManager) m_activity.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(m_activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(m_activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return ;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Long.valueOf(0), 0.0f, com.ankit.demomapapp.navigation.MapFragmentView.this);
+        }
         initMapFragment();
     }
 
@@ -81,6 +109,7 @@ public class MapFragmentView {
 
     private void initMapFragment() {
         m_mapFragment = getMapFragment();
+
         // Set path of isolated disk cache
         String diskCacheRoot = Environment.getExternalStorageDirectory().getPath()
                 + File.separator + ".isolated-here-maps";
@@ -118,8 +147,8 @@ public class MapFragmentView {
                             final RoutePlan routePlan = new RoutePlan();
 
                             // these two waypoints cover suburban roads
-                            routePlan.addWaypoint(new RouteWaypoint(new GeoCoordinate(48.98382, 2.50292)));
-                            routePlan.addWaypoint(new RouteWaypoint(new GeoCoordinate(48.95602, 2.45939)));
+                            routePlan.addWaypoint(new RouteWaypoint(new GeoCoordinate(lati, longi)));
+                            routePlan.addWaypoint(new RouteWaypoint(new GeoCoordinate(28.60772, 77.22425)));
 
                             try {
                                 // calculate a route for navigation
@@ -400,4 +429,61 @@ public class MapFragmentView {
             m_activity.finish();
         }
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lati = location.getLatitude();
+        longi = location.getLongitude();
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    /**
+     * Update location information.
+     * @param geoPosition Latest geo position update.
+     */
+    private void updateLocationInfo(PositioningManager.LocationMethod locationMethod, GeoPosition geoPosition) {
+
+        final StringBuffer sb = new StringBuffer();
+        final GeoCoordinate coord = geoPosition.getCoordinate();
+        sb.append("Type: ").append(String.format(Locale.US, "%s\n", locationMethod.name()));
+        sb.append("Coordinate:").append(String.format(Locale.US, "%.6f, %.6f\n", coord.getLatitude(), coord.getLongitude()));
+        if (coord.getAltitude() != GeoCoordinate.UNKNOWN_ALTITUDE) {
+            sb.append("Altitude:").append(String.format(Locale.US, "%.2fm\n", coord.getAltitude()));
+        }
+        if (geoPosition.getHeading() != GeoPosition.UNKNOWN) {
+            sb.append("Heading:").append(String.format(Locale.US, "%.2f\n", geoPosition.getHeading()));
+        }
+        if (geoPosition.getSpeed() != GeoPosition.UNKNOWN) {
+            sb.append("Speed:").append(String.format(Locale.US, "%.2fm/s\n", geoPosition.getSpeed()));
+        }
+        if (geoPosition.getBuildingName() != null) {
+            sb.append("Building: ").append(geoPosition.getBuildingName());
+            if (geoPosition.getBuildingId() != null) {
+                sb.append(" (").append(geoPosition.getBuildingId()).append(")\n");
+            } else {
+                sb.append("\n");
+            }
+        }
+        if (geoPosition.getFloorId() != null) {
+            sb.append("Floor: ").append(geoPosition.getFloorId()).append("\n");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+//        mLocationInfo.setText(sb.toString());
+    }
+
 }

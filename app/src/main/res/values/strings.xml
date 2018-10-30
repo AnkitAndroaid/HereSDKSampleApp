@@ -41,4 +41,8 @@
         <item name="indoorPositioningModePrivate">PRIVATE</item>
         <item name="indoorPositioningModeDraft">DRAFT</item>
     </string-array>
+
+    <string name="start_navi">Start Navigation</string>
+    <string name="stop_navi">Stop Navigation</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

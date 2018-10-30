@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 
 import com.ankit.demomapapp.R;
+import com.here.android.mpa.common.PositioningManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,16 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy(){
         m_mapFragmentView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

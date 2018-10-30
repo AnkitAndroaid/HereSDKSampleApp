@@ -17,6 +17,10 @@
         android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -36,13 +40,11 @@
         </activity>
         <activity
             android:name=".search.MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".search.ResultListActivity"
-            android:label="ResultList"></activity>
-        <activity android:name=".navigation.MainActivity">
-
-        </activity>
+            android:label="ResultList" />
+        <activity android:name=".navigation.MainActivity"></activity>
         <activity
             android:name=".positioning.BasicPositioningActivity"
             android:label="@string/app_name">
@@ -83,7 +85,7 @@
             android:exported="false"
             android:label="DemoMapHere">
             <intent-filter>
-                <action android:name="com.demo.here.maps.service"></action>
+                <action android:name="com.demo.here.maps.service" />
             </intent-filter>
         </service>
 
@@ -114,6 +116,27 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".guidance.MainActivity"></activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".gpsutils.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+
+
+        <activity android:name=".positionwithnearby.PositioningNearByActivity">
+
         </activity>
     </application>
 

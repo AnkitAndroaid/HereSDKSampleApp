@@ -136,6 +136,7 @@ public class BasicPositioningActivity extends Activity implements PositioningMan
         final GeoCoordinate coordinate = geoPosition.getCoordinate();
         if (mTransforming) {
             mPendingUpdate = new Runnable() {
+
                 @Override
                 public void run() {
                     onPositionUpdated(locationMethod, geoPosition, mapMatched);

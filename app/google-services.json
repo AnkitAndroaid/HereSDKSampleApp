@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "775115513645",
+    "firebase_url": "https://basic-decoder-220810.firebaseio.com",
+    "project_id": "basic-decoder-220810",
+    "storage_bucket": "basic-decoder-220810.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775115513645:android:76a69c8243110cd7",
+        "android_client_info": {
+          "package_name": "com.ankit.demomapapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775115513645-4d7gvn3us3517rlrfdb0208trup4nshh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ankit.demomapapp",
+            "certificate_hash": "d0ad218fc7c994614124a8fbd977efca8d08c85c"
+          }
+        },
+        {
+          "client_id": "775115513645-cfsn49k4jecfo9grmg0tpoetoj841nsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrltUCMq-eNBEXYNUp2vJoCkOK_f7dI9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775115513645-cfsn49k4jecfo9grmg0tpoetoj841nsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

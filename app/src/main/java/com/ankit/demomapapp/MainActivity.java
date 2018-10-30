@@ -1,4 +1,4 @@
-/*
+   /*
  * Copyright (c) 2011-2018 HERE Europe B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
